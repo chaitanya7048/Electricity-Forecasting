@@ -32,19 +32,15 @@ WATTAGE = {
 col1, col2 = st.columns([1, 1.2])
 
 with col1:
-    st.subheader("📊 Model Configurations & Logic")
+    st.subheader("📊 Model Configurations & Flow")
     st.write("Algorithm Backend: **XGBoost Regressor**")
     st.write("Dataset Split: **70% Training / 30% Testing**")
     
-    # Mathematical calculation logic behind the prediction
-    st.code("""
-    Total Monthly Units (kWh) calculation:
-    Units = (Wattage * Hours * 30 Days) / 1000
-    
-    Prediction Model:
-    [Total Units] -> [XGBoost Forecasting] -> [Final Bill Amount]
-    """, language="markdown")
-    
+    st.success("📝 Project Flow Logic:")
+    st.write("1. User provides daily appliance usage hours via sliders.")
+    st.write("2. System converts hours into monthly total power consumption (Units).")
+    st.write("3. The integrated XGBoost Model forecasts the final billing amount based on slab-wise dynamic parameters.")
+
     # Calculate Total Units
     total_units = (
         (WATTAGE["Fan"] * fan_hours) +
@@ -54,6 +50,7 @@ with col1:
         (WATTAGE["Washing_Machine"] * wm_hours)
     ) * 30 / 1000  # 30 Days calculation
 
+    st.write("")
     run_prediction = st.sidebar.button("PREDICT MY POWER BILL 🚀")
 
 with col2:
@@ -95,4 +92,4 @@ with col2:
         st.bar_chart(chart_data.set_index('Appliance'))
         
     else:
-        st.info
+        st.info("Left side unna sliders marchi, 'PREDICT MY POWER BILL' button nokku maawa, live magic chudadaniki!")
